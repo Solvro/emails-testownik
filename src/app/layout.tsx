@@ -1,13 +1,25 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+// import { Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 
 import { QueryProvider } from "@/lib/query-client";
 
 import "./globals.css";
 
-const space_grotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
+// const space_grotesk = Space_Grotesk({
+//   variable: "--font-space-grotesk",
+//   subsets: ["latin"],
+// });
+
+const sfProDisplay = localFont({
+  variable: "--font-sf-pro-display",
+  src: [
+    {
+      path: "./fonts/SF-Pro-Display/SF-Pro-Display-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
 });
 
 export const metadata: Metadata = {
@@ -23,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <QueryProvider>
-        <body className={`${space_grotesk.variable} font-sans antialiased`}>
+        <body className={`${sfProDisplay.variable} font-sans antialiased`}>
           {children}
         </body>
       </QueryProvider>
