@@ -1,0 +1,49 @@
+name: Build Email Template
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "package.json"
+      - "scripts/**"
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build email template
+        run: npm run build:email
+        env:
+          GITHUB_ACTIONS: true
+
+      - name: Upload email template artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: email-template
+          path: dist/email/
+          retention-days: 30
+
+      # On release, attach the email template files to the release
+      - name: Upload to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/email/email.html

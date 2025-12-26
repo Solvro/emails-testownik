@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
+    "build:email": "npx tsx scripts/build-email.ts",
     "dev": "vite",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
