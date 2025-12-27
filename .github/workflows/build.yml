@@ -39,7 +39,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: ${{ steps.commit_message.outputs.message }}
-          tag_name: latest
           files: base.html
           make_latest: true
         env:

@@ -60,11 +60,20 @@
       img {
         @apply max-w-full align-middle;
       }
+
+      /* Target Gmail (Mobile) to force solid background for inversion */
+      @media only screen and (max-width: 600px) {
+        u + #body .gmail-fix-card {
+          background-image: none !important;
+          background-color: #fafafa !important;
+        }
+      }
     </style>
     <stack name="head" />
   </head>
 
   <body
+    id="body"
     class="m-0 p-0 w-full font-sans text-text-main [word-break:break-word] [-webkit-font-smoothing:antialiased] {{ page.bodyClass || '' }}"
   >
     <if condition="page.preheader">
