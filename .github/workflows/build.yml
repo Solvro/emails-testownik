@@ -35,10 +35,15 @@ jobs:
         id: commit_message
         run: echo "message=$(git log -1 --format=%s)" >> $GITHUB_OUTPUT
 
+      - name: Get Short SHA
+        id: short_sha
+        run: echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - name: Upload to Latest Release
         uses: softprops/action-gh-release@v2
         with:
           name: ${{ steps.commit_message.outputs.message }}
+          tag_name: commit-${{ steps.short_sha.outputs.sha }}
           files: base.html
           make_latest: true
         env:
