@@ -1,14 +1,17 @@
 ---
-title: "Powiadomienie z Testownika"
-preheader: "Twoje quizy zostały anulowane"
+title: "<raw>{{ title }}</raw>"
+preheader: "<raw>{{ content|safe }}</raw>"
+bodyClass: bg-page
 ---
 
 <x-main>
-  <div class="h-full w-[-webkit-fill-available] bg-page p-10 text-center table">
+  <div
+    class="h-full w-[-webkit-fill-available] bg-page lg:py-20 py-10 sm:px-10 px-6 text-center table"
+  >
     <div class="table-cell align-middle">
       <!-- Main Card -->
       <div
-        class="inline-block w-[740px] max-w-full rounded-[30px] border border-card-border bg-card-gradient py-8 px-6 text-left shadow-card"
+        class="inline-block max-w-[740px] w-full box-border rounded-[30px] border border-card-border bg-card-gradient py-8 px-6 text-left shadow-card"
       >
         <!-- Header -->
         <div class="mb-6">
@@ -33,36 +36,34 @@ preheader: "Twoje quizy zostały anulowane"
 
         <!-- Content -->
         <div class="mb-6">
+          <raw> {% if title %} </raw>
           <h1
             class="mb-3 text-3xl leading-none font-medium tracking-normal text-text-main m-0"
           >
-            Twoje quizy zostały anulowane
+            <raw>{{ title }}</raw>
           </h1>
+          <raw> {% endif %} </raw>
           <p class="text-base font-thin text-text-main m-0">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+            <raw>{{ content|safe }}</raw>
           </p>
         </div>
 
         <!-- Button Section -->
+        <raw> {% if cta_url %} </raw>
         <div class="mb-6">
           <a
-            href="#login"
+            href="{{ cta_url }}"
             class="mb-2 inline-block rounded-3xl bg-btn-gradient px-6 py-3 text-lg font-normal text-button-text no-underline shadow-btn"
           >
-            Zaloguj się
+            <raw>{{ cta_text }}</raw>
           </a>
-          <p class="text-sm font-light text-text-main opacity-50 m-0">
-            *Po zalogowaniu się przejdź do ustawień
+          {% if cta_description %}
+          <p class="text-sm font-thin text-text-main m-0">
+            {{ cta_description }}
           </p>
+          {% endif %}
         </div>
+        <raw> {% endif %} </raw>
 
         <!-- Footer -->
         <div class="border-t border-0 border-border-light border-solid pt-3">
@@ -72,14 +73,13 @@ preheader: "Twoje quizy zostały anulowane"
           </p>
           <p class="text-sm font-thin text-text-muted m-0">
             <a
-              href="https://testownik.solvro.pl"
+              href="{{ frontend_url }}"
               class="text-text-main no-underline"
               target="_blank"
               rel="noopener"
             >
               Testownik
             </a>
-
             &#8226;
             <a
               href="https://solvro.pwr.edu.pl"
@@ -91,7 +91,7 @@ preheader: "Twoje quizy zostały anulowane"
             </a>
             &#8226;
             <a
-              href="https://testownik.solvro.pl/profile#notifications"
+              href="{{ frontend_url }}/profile#notifications"
               class="text-text-main no-underline"
               target="_blank"
               rel="noopener"

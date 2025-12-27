@@ -31,10 +31,14 @@ jobs:
       - name: Prepare Release File
         run: mv build/template.html base.html
 
+      - name: Get Commit Message
+        id: commit_message
+        run: echo "message=$(git log -1 --format=%s)" >> $GITHUB_OUTPUT
+
       - name: Upload to Latest Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Latest Build
+          name: ${{ steps.commit_message.outputs.message }}
           tag_name: latest
           files: base.html
           make_latest: true
